@@ -26,7 +26,7 @@ def _connect_database(url):
 
     scheme = parsed.scheme.split('+')
     if len(scheme) == 1:
-        raise Exception('wrong scheme format: %s' parsed.scheme)
+        raise Exception('wrong scheme format: %s', parsed.scheme)
     else:
         engine, dbtype = scheme[0], scheme[-1]
         other_scheme = "+".join(scheme[1:-1])
