@@ -18,7 +18,7 @@ class BaseDB:
 
     dbcur should be overwrite
     '''
-    __tablename__None
+    __tablename__ = None
     placehold = '%s'
     maxlimit = -1
 
