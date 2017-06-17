@@ -19,7 +19,7 @@ class BaseDB:
     dbcur should be overwrite
     '''
     __tablename__ = None
-    placehold = '%s'
+    placeholder = '%s'
     maxlimit = -1
 
     @staticmethod
@@ -70,7 +70,7 @@ class BaseDB:
             sql_query += " LIMIT %d, %d" % (offset, self.maxlimit)
         logger.debug("<sql: %s>", sql_query)
 
-        dbcur = _execute(sql_query, where_values)
+        dbcur = self._execute(sql_query, where_values)
         fields = [f[0] for f in dbcur.description]
 
         for row in dbcur:
@@ -80,7 +80,7 @@ class BaseDB:
         tablename = self.escape(tablename or self.__tablename__)
         if values:
             _key = ', '.join(self.escape(k) for k in values)
-            _values = ', '.join([self.placehold, ] * len(values))
+            _values = ', '.join([self.placeholder, ] * len(values))
             sql_query = "REPLACE INTO %s (%s) VALUES (%s)" % (tablename, _key,
                     _values)
         else:
@@ -97,7 +97,7 @@ class BaseDB:
         tablename = self.escape(tablename or self.__tablename__)
         if values:
             _key = ', '.join(self.escape(k) for k in values)
-            _values = ', '.join([placeholder, ] * len(values))
+            _values = ', '.join([self.placeholder, ] * len(values))
             sql_query = "INSERT INTO %s (%s) VALUES (%s)" % (tablename, _key,
                     _values)
         else:
