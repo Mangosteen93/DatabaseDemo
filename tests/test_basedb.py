@@ -28,8 +28,7 @@ if __name__ == "__main__":
     db = DB()
     assert db._insert(db.__tablename__, name = "Watcher", age = 24) == 1
     assert db._select(db.__tablename__, "name, age").next() == ("Watcher", 24)
-    assert db._select2dic(db.__tablename__, "name, age").next()["name"] ==
-    "Watcher"
+    assert db._select2dic(db.__tablename__, "name, age").next()["name"] == "Watcher"
     assert db._select2dic(db.__tablename__, "name, age").next()["age"] == 24
     db.replace(db.__tablename__, id = 1, age = 25)
     assert db._select(db.__tablename__, "name, age").next() == (None, 25)
