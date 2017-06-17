@@ -6,7 +6,7 @@
 
 
 if __name__ == "__main__":
-    from DatabaseDemo.database.basedb import BaseDB
+    from database.basedb import BaseDB
     import sqlite3
 
     class DB(BaseDB):
@@ -30,9 +30,9 @@ if __name__ == "__main__":
     assert db._select(db.__tablename__, "name, age").next() == ("Watcher", 24)
     assert db._select2dic(db.__tablename__, "name, age").next()["name"] == "Watcher"
     assert db._select2dic(db.__tablename__, "name, age").next()["age"] == 24
-    db.replace(db.__tablename__, id = 1, age = 25)
+    db._replace(db.__tablename__, id = 1, age = 25)
     assert db._select(db.__tablename__, "name, age").next() == (None, 25)
     db._update(db.__tablename__, "id = 1", age = 16)
     assert db._select(db.__tablename__, "name, age").next() == (None, 16)
     db._delete(db.__tablename__, "id = 1")
-    assert [row for row in db.select(db.__tablename__)] == []
+    assert [row for row in db._select(db.__tablename__)] == []
