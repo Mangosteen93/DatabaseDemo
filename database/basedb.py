@@ -7,7 +7,11 @@
 from __future__ import unicode_literals, division, absolute_import
 
 import logging
-logger = logging.getLogger('database.basedb')
+import logging.config
+# CONF = '/Users/liubo/Git/DatabaseDemo/logging.conf'
+CONF = 'logging.conf'
+logging.config.fileConfig(CONF)
+logger = logging.getLogger('database')
 
 from six import itervalues
 
