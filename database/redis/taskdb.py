@@ -12,8 +12,8 @@ import redis
 import logging
 import itertools
 
-from pyspider.libs import utils
-from pyspider.database.base.taskdb import TaskDB as BaseTaskDB
+from libs import utils
+from database.base.taskdb import TaskDB as BaseTaskDB
 
 
 class TaskDB(BaseTaskDB):
