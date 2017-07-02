@@ -34,7 +34,8 @@ class TestMysqlUserDB(UserDBCase, unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        self.userdb = database.connect_database('mysql+user://192.168.1.3:33306/databasedemo_test_userdb')
+        self.userdb =
+        database.connect_database('mysql+user://watcher+LiuBo678621@localhost:33306/databasedemo_test_userdb')
 
     @classmethod
     def tearDownClass(self):
