@@ -37,7 +37,7 @@ class UserDB(MySQLMixin, BaseUserDB, BaseDB):
                 `email` TEXT,
                 `school` TEXT,
                 `createtime` double(16, 4),
-                `updatetime` double(16, 4),
+                `updatetime` double(16, 4)
                 ) ENGINE=InnoDB CHARSET=utf8''' % self.escape(tablename))
 
     def _parse(self, data):
