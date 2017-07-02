@@ -48,7 +48,7 @@ def _connect_database(url):
             params['database'] = parsed.path.strip('/')
 
         if dbtype == 'user':
-            from .mysql.userdb import UserDB
+            from database.mysql.userdb import UserDB
             return UserDB(**params)
         else:
             raise LookupError
