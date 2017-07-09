@@ -38,7 +38,11 @@ class UserDBCase(object):
     def test_20_get_user(self):
         user = self.userdb.get_user('Watcher')
         self.assertIsNotNone(user)
-        self.assertEqual(user, self.sample_user)
+        self.assertEqual(user['id'], '1')
+        self.assertEqual(user['age'], 24)
+        self.assertEqual(user['job'], 'coder')
+        self.assertEqual(user['email'], self.sample_user['email'])
+        self.assertEqual(user['school'], self.sample_user['school'])
 
     def test_30_update(self):
         self.userdb.update('Watcher', age = 25)
