@@ -53,14 +53,14 @@ class UserDB(MySQLMixin, BaseUserDB, BaseDB):
         return data
 
     def _stringify(self, data):
-        for each in ('emaile', 'school'):
+        for each in ('email', 'school'):
             if each in data:
                 data[each] = json.dumps(data[each])
         return data
 
     def get_user(self, name, fields=None):
         where = "`name` = %s" % self.placeholder
-        tablename = self.tablename__tablename__
+        tablename = self.tablename__
         for each in self._select2dic(tablename, what=fields, where=where,
                 where_values=(name, )):
             return self._parse(each)
