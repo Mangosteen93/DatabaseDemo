@@ -60,7 +60,7 @@ class BaseDB:
     def _select2dic(self, tablename = None, what = "*", where = "", where_values
             = [], order = None, offset = 0, limit = None):
         tablename = self.escape(tablename or self.__tablename__)
-        if isinstance(what, list) or isinstance(what, tuple):
+        if isinstance(what, list) or isinstance(what, tuple) or what is None:
             what = ','.join(self.escape(f) for f in what) if what else '*'
 
         sql_query = "SELECT %s FROM %s" % (what, tablename)
