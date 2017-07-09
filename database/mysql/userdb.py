@@ -60,7 +60,7 @@ class UserDB(MySQLMixin, BaseUserDB, BaseDB):
 
     def get_user(self, name, fields=None):
         where = "`name` = %s" % self.placeholder
-        tablename = self.tablename__
+        tablename = self.__tablename__
         for each in self._select2dic(tablename, what=fields, where=where,
                 where_values=(name, )):
             return self._parse(each)
