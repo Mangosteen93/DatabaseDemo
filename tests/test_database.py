@@ -28,6 +28,26 @@ class UserDBCase(object):
         'updatetime': time.time(),
     }
 
+    @classmethod
+    def setUpClass(self):
+        raise NotImplemented
+
+    def test_10_insert(self):
+        self.userdb.insert('Watcher', self.sample_user)
+
+    def test_20_get_user(self):
+        user = self.userdb.get_user('Watcher')
+        self.assertIsNotNone(user)
+        self.assertEqual(user, self.sample_user)
+
+    def test_30_update(self):
+        self.userdb.update('Watcher', age = 25)
+
+    def test_40_check_update(self):
+        user = self.userdb.get_user('Watcher')
+        self.assertIsNotNone(user)
+        self.assertEqual(user['age'], 25)
+
 
 @unittest.skipIf(os.environ.get('IGNORE_MYSQL') or os.environ.get('IGNORE_ALL'), 'no mysql server for test.')
 class TestMysqlUserDB(UserDBCase, unittest.TestCase):
@@ -39,9 +59,6 @@ class TestMysqlUserDB(UserDBCase, unittest.TestCase):
     @classmethod
     def tearDownClass(self):
         self.userdb._execute('DROP DATABASE databasedemo_test_userdb')
-
-    def test_10_print(self):
-        print 'test'
 
 
 if __name__ == '__main__':
