@@ -83,5 +83,20 @@ class TestRedisUserDB(UserDBCase, unittest.TestCase):
     @classmethod
     def tearDownClass(self):
         pass
+
+
+@unittest.skipIf(os.environ.get('IGNORE_MONGODB') or os.environ.get('IGNORE_ALL'), 'no mongodb server for test')
+class TestMongoDBUserDB(UserDBCase, unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        self.userdb =
+        database.connect_database('mongdb+taskdb://localhost:27017/databasedemo_test_userdb')
+
+    @classmethod
+    def tearDownClass(self):
+        self.userdb.conn.drop_database(self.userdb.database.name)
+
+
 if __name__ == '__main__':
     unittest.main()
