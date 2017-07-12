@@ -52,6 +52,13 @@ class UserDBCase(object):
         self.assertIsNotNone(user)
         self.assertEqual(user['age'], 25)
 
+    def test_50_drop(self):
+        self.userdb.drop('Watcher')
+
+    def test_60_check_drop(self):
+        user = self.userdb.get_user('Watcher')
+        self.assertIsNone(user)
+
 
 @unittest.skipIf(os.environ.get('IGNORE_MYSQL') or os.environ.get('IGNORE_ALL'), 'no mysql server for test.')
 class TestMysqlUserDB(UserDBCase, unittest.TestCase):
@@ -65,5 +72,16 @@ class TestMysqlUserDB(UserDBCase, unittest.TestCase):
         self.userdb._execute('DROP DATABASE databasedemo_test_userdb')
 
 
+@unittest.skipIf(os.environ.get('IGNORE_REDIS') or os.environ.get('IGNORE_ALL'),'no redis server for test.')
+class TestRedisUserDB(UserDBCase, unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        self.userdb =
+        database.connect_database('redis+userdb://localhost:6379/15')
+
+    @classmethod
+    def tearDownClass(self):
+        pass
 if __name__ == '__main__':
     unittest.main()

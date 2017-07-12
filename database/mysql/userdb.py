@@ -84,3 +84,7 @@ class UserDB(MySQLMixin, BaseUserDB, BaseDB):
             where_values=(name, ),
             **self._stringify(obj)
         )
+
+    def drop(self, name):
+        where = "`name` = %s" % self.placeholder
+        return self._delete(where = where, where_values = (name, ))

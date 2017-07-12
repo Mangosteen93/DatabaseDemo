@@ -12,6 +12,11 @@ def connect_database(url):
 
     mysql:
         mysql+type://user:passwd@host:port/database
+    redis:
+        redis+taskdb://host:port/db
+    mongodb:
+        mongodb+type://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+        more: http://docs.mongodb.org/manual/reference/connection-string/
 
     type:
         user
@@ -50,6 +55,24 @@ def _connect_database(url):
         if dbtype == 'user':
             from database.mysql.userdb import UserDB
             return UserDB(**params)
+        else:
+            raise LookupError
+    elif engine == 'redis':
+        if dbtype == 'userdb':
+            from database.redis.userdb import UserDB
+            return UserDB(parsed.hostname, parsed.port,
+                          int(parsed.path.strip('/') or 0))
+        else:
+            raise LookupError('not supported dbtype: %s', dbtype)
+    elif engine == 'mongodb':
+        url = url.replace(parsed.scheme, 'mongodb')
+        parames = {}
+        if parsed.path.strip('/'):
+            parames['database'] = parsed.path.strip('/')
+
+        if dbtype == 'userdb':
+            from database.mongodb.userdb import UserDB
+            return UserDB(url, **parames)
         else:
             raise LookupError
     else:
