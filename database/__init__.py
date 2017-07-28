@@ -58,22 +58,15 @@ def _connect_database(url):
         else:
             raise LookupError
     elif engine == 'redis':
-        if dbtype == 'userdb':
-            from database.redis.userdb import UserDB
-            return UserDB(parsed.hostname, parsed.port,
-                          int(parsed.path.strip('/') or 0))
-        else:
-            raise LookupError('not supported dbtype: %s', dbtype)
+        from database.redis.userdb import UserDB
+        return UserDB(parsed.hostname, parsed.port, int(parsed.path.strip('/') or 0))
     elif engine == 'mongodb':
         url = url.replace(parsed.scheme, 'mongodb')
         parames = {}
         if parsed.path.strip('/'):
             parames['database'] = parsed.path.strip('/')
 
-        if dbtype == 'userdb':
-            from database.mongodb.userdb import UserDB
-            return UserDB(url, **parames)
-        else:
-            raise LookupError
+        from database.mongodb.userdb import UserDB
+        return UserDB(url, **parames)
     else:
         raise Exception('unknown engine: %s' % engine)

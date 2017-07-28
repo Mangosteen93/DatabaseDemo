@@ -77,8 +77,7 @@ class TestRedisUserDB(UserDBCase, unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        self.userdb =
-        database.connect_database('redis+userdb://localhost:6379/15')
+        self.userdb = database.connect_database('redis+user://localhost:6379/15')
 
     @classmethod
     def tearDownClass(self):
@@ -90,8 +89,7 @@ class TestMongoDBUserDB(UserDBCase, unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        self.userdb =
-        database.connect_database('mongdb+taskdb://localhost:27017/databasedemo_test_userdb')
+        self.userdb = database.connect_database('mongodb+user://localhost:27017/databasedemo_test_userdb')
 
     @classmethod
     def tearDownClass(self):

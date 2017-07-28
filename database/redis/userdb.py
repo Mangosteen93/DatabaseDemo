@@ -13,6 +13,11 @@ import redis
 from libs import utils
 from database.base.userdb import UserDB as BaseUserDB
 
+import logging
+import logging.config
+CONF = 'logging.conf'
+logging.config.fileConfig(CONF)
+logger = logging.getLogger('database')
 
 class UserDB(BaseUserDB):
     

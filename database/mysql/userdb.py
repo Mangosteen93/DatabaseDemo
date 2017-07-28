@@ -86,5 +86,6 @@ class UserDB(MySQLMixin, BaseUserDB, BaseDB):
         )
 
     def drop(self, name):
+        tablename = self.__tablename__
         where = "`name` = %s" % self.placeholder
-        return self._delete(where = where, where_values = (name, ))
+        return self._delete(tablename, where = where, where_values = (name, ))
