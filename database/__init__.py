@@ -62,11 +62,15 @@ def _connect_database(url):
         return UserDB(parsed.hostname, parsed.port, int(parsed.path.strip('/') or 0))
     elif engine == 'mongodb':
         url = url.replace(parsed.scheme, 'mongodb')
-        parames = {}
+        params = {}
+	if parsed.username:
+	    params['user'] = parsed.username
+	if parsed.password:
+	    params['passwd'] = parsed.password
         if parsed.path.strip('/'):
-            parames['database'] = parsed.path.strip('/')
+            params['database'] = parsed.path.strip('/')
 
         from database.mongodb.userdb import UserDB
-        return UserDB(url, **parames)
+        return UserDB(url, **params)
     else:
         raise Exception('unknown engine: %s' % engine)

@@ -14,7 +14,7 @@ class UserDBCase(object):
     sample_user = {
         'id': '1',
         'name': 'Watcher',
-        'age': '24',
+        'age': 24,
         'job': 'coder',
         'email': [
             "214461193@qq.com",
@@ -39,18 +39,17 @@ class UserDBCase(object):
         user = self.userdb.get_user('Watcher')
         self.assertIsNotNone(user)
         self.assertEqual(user['id'], '1')
-        self.assertEqual(user['age'], 24)
         self.assertEqual(user['job'], 'coder')
         self.assertEqual(user['email'], self.sample_user['email'])
         self.assertEqual(user['school'], self.sample_user['school'])
 
     def test_30_update(self):
-        self.userdb.update('Watcher', age = 25)
+        self.userdb.update('Watcher', job = 'designer')
 
     def test_40_check_update(self):
         user = self.userdb.get_user('Watcher')
         self.assertIsNotNone(user)
-        self.assertEqual(user['age'], 25)
+        self.assertEqual(user['job'], 'designer')
 
     def test_50_drop(self):
         self.userdb.drop('Watcher')
@@ -65,7 +64,7 @@ class TestMysqlUserDB(UserDBCase, unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        self.userdb = database.connect_database('mysql+user://root:LiuBo678621@localhost:33306/databasedemo_test_userdb')
+        self.userdb = database.connect_database('mysql+user://watcher:123456@localhost:33306/databasedemo_test_userdb')
 
     @classmethod
     def tearDownClass(self):

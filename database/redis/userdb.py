@@ -9,6 +9,7 @@ import six
 import time
 import json
 import redis
+import itertools
 
 from libs import utils
 from database.base.userdb import UserDB as BaseUserDB
@@ -78,7 +79,6 @@ class UserDB(BaseUserDB):
         pipe.execute()
 
     def update(self, name, obj={}, **kwargs):
-        tablename = self.__tablename__
         obj = dict(obj)
         obj.update(kwargs)
         obj['updatetime'] = time.time()
@@ -96,7 +96,7 @@ class UserDB(BaseUserDB):
         else:
             scan_method = self.redis.keys
 
-        for each in itertools.tee(scan_method("%s_*") % self.__prefix__, 100):
+        for each in itertools.tee(scan_method("%s_*" % self.__prefix__), 100):
             each = list(each)
             if each:
                 self.redis.delete(*each)

@@ -4,6 +4,7 @@
 # Author: Watcher
 # Created on 2017-07-12
 
+import six
 import json
 import time
 from pymongo import MongoClient
@@ -13,12 +14,13 @@ from database.base.userdb import UserDB as BaseUserDB
 class UserDB(BaseUserDB):
     __collection_name__ = 'user'
 
-    def __init__(self, url, database = 'userdb'):
-        self.conn = MongoClient(url)
+    def __init__(self, url, database = 'userdb', user='watcher', passwd=None):
+        
+	self.conn = MongoClient(url)
         self.conn.admin.command("ismaster")
         self.database = self.conn[database]
         
-        collection_name = self.__collection_name__
+	collection_name = self.__collection_name__
         self.database[collection_name].ensure_index('name')
 
     
